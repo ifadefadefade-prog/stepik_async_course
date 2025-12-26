@@ -1,0 +1,47 @@
+{
+  "algorithm": "deny-overrides",
+  "rules": [
+    {
+      "id": "admin_pages",
+      "effect": "permit",
+      "actions": ["*"], 
+      "resource": { "type": "page" },
+      "condition": { "hasAny": [ { "attr": "subject.roles" }, ["admin"] ] }
+    },
+    {
+      "id": "user_pages",
+      "effect": "permit",
+      "actions": ["view_user", "access_protected"],
+      "resource": { "type": "page" },
+      "condition": { "hasAny": [ { "attr": "subject.roles" }, ["user"] ] }
+    },
+    {
+      "id": "guest_pages",
+      "effect": "permit", 
+      "actions": ["view_guest"],
+      "resource": { "type": "page" },
+      "condition": { "hasAny": [ { "attr": "subject.roles" }, ["guest"] ] }
+    },
+    {
+      "id": "admin_products",
+      "effect": "permit",
+      "actions": ["create_product", "delete_product", "view_products"],
+      "resource": { "type": "products" },  
+      "condition": { "hasAny": [ { "attr": "subject.roles" }, ["admin"] ] }
+    },
+    {
+      "id": "user_products",
+      "effect": "permit",
+      "actions": ["view_products"],
+      "resource": { "type": "products" },
+      "condition": { "hasAny": [ { "attr": "subject.roles" }, ["user", "admin"] ] }
+    },
+    {
+      "id": "guest_products",
+      "effect": "permit",
+      "actions": ["view_products"], 
+      "resource": { "type": "products" },
+      "condition": { "hasAny": [ { "attr": "subject.roles" }, ["guest", "user", "admin"] ] }
+    }
+  ]
+}
